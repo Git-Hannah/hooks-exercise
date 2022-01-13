@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+
+const Code = ({ code }) => (
+  <pre>
+    <code>{JSON.stringify(code, null, 4)}</code>
+  </pre>
+);
+
+const useMouseposition = () => {
+  const [position, setPosition] = useState({
+    x: 0,
+    y: 0,
+  });
+  return position;
+};
 
 function App() {
+  const [state, setState] = useState(42);
+  const position = useMouseposition();
+  useEffect(() => {
+    if (state === 50) {
+      console.log("hallo");
+    }
+  }, [state]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={() => setState((previousState) => previousState - 1)}>
+        -
+      </button>
+
+      <span>{state}</span>
+      <button onClick={() => setState((previousState) => previousState + 1)}>
+        {" "}
+        +{" "}
+      </button>
+      <br />
+      <div>
+        <Code code={position} />
+      </div>
     </div>
   );
 }
